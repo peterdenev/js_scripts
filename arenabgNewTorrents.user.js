@@ -342,9 +342,9 @@ if(window.location.href.substr(0, 28) == "http://arenabg.com/torrents/" )
     
     function init2(){
         //mark last top_row
-        var old_a_href = getCookieLastTopRow();
-        console.log(old_a_href);
+        var old_a_href = getCookieLastTopRow();        
         if(old_a_href!=''){
+            //show all new rows
             var torr_rows = document
 				.getElementsByClassName('torrents')[0]
 				.getElementsByTagName('tr');	
@@ -363,6 +363,7 @@ if(window.location.href.substr(0, 28) == "http://arenabg.com/torrents/" )
             }
             
             /*
+            // show only last top row
             var f_el = findRowByHref(old_a_href);
             if(f_el!=null){
                 f_el.style.backgroundColor="#044F15";

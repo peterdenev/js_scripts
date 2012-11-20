@@ -251,6 +251,30 @@ _utf8_decode : function (utftext) {
 }
 
 
+function getFirstNewHref(){
+    return document.getElementsByClassName('test')[1]
+                .getElementsByTagName('tr')[1]
+                .getElementsByTagName('td')[1]
+                .getElementsByTagName('a')[0]
+                .getAttribute('href');
+}
+
+function findRowByHref(a_href){
+    var torr_rows = document
+                .getElementsByClassName('test')[1]
+                .getElementsByTagName('tr');    
+
+    for(i=1;i<=torr_rows.length;i++){
+        var temp_td = (torr_rows[i]).getElementsByTagName('td')[1];
+        var temp_href = temp_td.getElementsByTagName('a')[0]                                
+                               .getAttribute('href');       
+        if(temp_href==a_href){
+            return temp_td;
+        }
+    }
+    return null;
+}
+
 
 if(window.location.href.substr(0, 29) == "http://zamunda.net/browse.php" )
 {
@@ -259,7 +283,8 @@ if(window.location.href.substr(0, 29) == "http://zamunda.net/browse.php" )
 	var ifrId = 0;
 	var battle_code = loc.substring(loc.indexOf('battlefield/')+12);
 	var cookie_top10_td = 'zam_netTop10_petd';
-	
+	var cookie_last_top_row = 'zam_netLastTopRow_pd';
+    var cookie_hours = 48;
 
 	
 	function getCookieTop(number){
@@ -276,7 +301,7 @@ if(window.location.href.substr(0, 29) == "http://zamunda.net/browse.php" )
 	
 	function setCookieTops(newList){		
 		for(var i=0;i<10;i++){
-			createCookie(cookie_top10_td+'_'+i,newList[i],24);	
+			createCookie(cookie_top10_td+'_'+i,newList[i], cookie_hours);	
 		}	
 	}
     
@@ -286,11 +311,21 @@ if(window.location.href.substr(0, 29) == "http://zamunda.net/browse.php" )
 		}	
     }
 
+    function getStorageLastTopRow(){
+        var cookieLastTopRow = window.localStorage.getItem(cookie_last_top_row); //eval('(' + readCookie(cookie_top10_td) + ')');
+        if(cookieLastTopRow==null) cookieLastTopRow = "";
+        return cookieLastTopRow;
+    }
+    
+    function setStorageLastTopRow(a_href){       
+        window.localStorage.setItem(cookie_last_top_row, a_href);              
+    } 
+
 
 	function init(){		
 		var top10TRs = document.getElementById('div1').getElementsByTagName('table')[0].getElementsByTagName('tr');
 		var curTopsList = new Array();	
-        window.localStorage.setItem('value', 'petd');
+        //window.localStorage.setItem('value', 'petd');
 			
 		for(var i=1;i<top10TRs.length;i++){
 			var cur_el = top10TRs[i].getElementsByTagName('td')[1];
@@ -316,8 +351,44 @@ if(window.location.href.substr(0, 29) == "http://zamunda.net/browse.php" )
 		//setCookieTops(curTopsList);
                
 		
-		
+		init2();
 	}
+
+     function init2(){
+        //mark last top_row
+        var old_a_href = getStorageLastTopRow();        
+        if(old_a_href!=''){
+            //show all new rows
+            var torr_rows = document
+                .getElementsByClassName('test')[1]
+                .getElementsByTagName('tr');    
+
+            for(i=1;i<=torr_rows.length;i++){
+                var temp_td = (torr_rows[i]).getElementsByTagName('td')[1];
+                var temp_href = temp_td.getElementsByTagName('a')[0]                                
+                                       .getAttribute('href');       
+                if(temp_href==old_a_href){
+                    //return temp_td;
+                    temp_td.setAttribute('title','Last saw row');
+                    break;
+                }else{
+                    temp_td.style.backgroundColor="#C3F3CE";
+                }
+            }
+            
+            /*
+            // show only last top row
+            var f_el = findRowByHref(old_a_href);
+            if(f_el!=null){
+                f_el.style.backgroundColor="#044F15";
+                f_el.setAttribute('title','Last saw row');
+            }
+            */
+        }
+        
+        //save current top_row
+        setStorageLastTopRow(getFirstNewHref());        
+    }
 	
 	setTimeout(init, 1000);
 	

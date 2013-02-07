@@ -31,8 +31,8 @@ price_to_bg = function(){
             if(del_old_val.indexOf('$')!=-1){
                 val_split = del_old_val.split('$');
                 del_val = val_split[1].trim() * dolar;
-            }else if(del_old_val.indexOf('€')!=-1){
-                val_split = del_old_val.split('€');
+            }else if(del_old_val.indexOf('Ð‚')!=-1){
+                val_split = del_old_val.split('Ð‚');
                 del_val = val_split[1].trim() * evro;
             }            
             
@@ -45,8 +45,8 @@ price_to_bg = function(){
         if(old_value_clean.indexOf('$')!=-1){
             val_split = old_value_clean.split('$');
             bg_val = val_split[1].trim() * dolar;
-        }else if(old_value_clean.indexOf('€')!=-1){
-            val_split = old_value_clean.split('€');
+        }else if(old_value_clean.indexOf('Ð‚')!=-1){
+            val_split = old_value_clean.split('Ð‚');
             bg_val = val_split[1].trim() * evro;
         } 
         
@@ -62,7 +62,7 @@ price_to_bg = function(){
         p_cur = document.getElementsByClassName('cur_cy')[0].innerHTML;
         if(p_cur.indexOf('$')!=-1){            
             bg_val = old_value.trim() * dolar;
-        }else if(p_cur.indexOf('€')!=-1){           
+        }else if(p_cur.indexOf('Ð‚')!=-1){           
             bg_val = old_value.trim() * evro;
         }
         

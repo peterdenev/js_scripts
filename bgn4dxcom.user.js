@@ -3,7 +3,10 @@
 // @namespace  http://browserbase.biz/
 // @version    0.1
 // @description  bgn for dx.com
-// @match      http*://*dx.com/*
+// @include      http://*.dx.com/*
+// @include      https://dx.com/*
+// @include      http://dx.com/*
+// @include      https://dx.com/*
 // @copyright  2013+, Peter Denev
 // ==/UserScript==
 

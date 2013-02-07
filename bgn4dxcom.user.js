@@ -15,6 +15,8 @@ if (!String.prototype.trim) {
 
 price_to_bg = function(){
     var prices, val_split, i, old_value, bg_val, del_val, dels, product_price, p_cur, old_value_clean, del_old_val;
+    var dolar = 1.502;
+    var evro = 1.955;
 
     prices = document.getElementsByClassName('price');
     for(i=0; i<prices.length; i++){        
@@ -28,10 +30,10 @@ price_to_bg = function(){
             
             if(del_old_val.indexOf('$')!=-1){
                 val_split = del_old_val.split('$');
-                del_val = val_split[1].trim() * 1.43;
+                del_val = val_split[1].trim() * dolar;
             }else if(del_old_val.indexOf('€')!=-1){
                 val_split = del_old_val.split('€');
-                del_val = val_split[1].trim() * 1.955;
+                del_val = val_split[1].trim() * evro;
             }            
             
             del_val = Math.ceil(del_val * 100) / 100;
@@ -42,10 +44,10 @@ price_to_bg = function(){
         
         if(old_value_clean.indexOf('$')!=-1){
             val_split = old_value_clean.split('$');
-            bg_val = val_split[1].trim() * 1.43;
+            bg_val = val_split[1].trim() * dolar;
         }else if(old_value_clean.indexOf('€')!=-1){
             val_split = old_value_clean.split('€');
-            bg_val = val_split[1].trim() * 1.955;
+            bg_val = val_split[1].trim() * evro;
         } 
         
         prices[i].setAttribute('title',old_value.trim());
@@ -59,9 +61,9 @@ price_to_bg = function(){
         old_value = product_price.innerHTML;
         p_cur = document.getElementsByClassName('cur_cy')[0].innerHTML;
         if(p_cur.indexOf('$')!=-1){            
-            bg_val = old_value.trim() * 1.43;
+            bg_val = old_value.trim() * dolar;
         }else if(p_cur.indexOf('€')!=-1){           
-            bg_val = old_value.trim() * 1.955;
+            bg_val = old_value.trim() * evro;
         }
         
         dels = product_price.getElementsByTagName('del');
@@ -77,4 +79,4 @@ price_to_bg = function(){
         
 }
 
-setTimeout(price_to_bg,1000);
+setTimeout(price_to_bg,2500);

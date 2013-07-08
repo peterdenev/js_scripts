@@ -1,0 +1,57 @@
+<html>
+<head>
+	<link rel="stylesheet" href="pd_style.css">
+	<script src="jquery-1.7.1.min.js" type="text/javascript"></script>
+	<script src="jquery-ui.min.js" type="text/javascript"></script>
+	<script src="jsAlertsPD.js" type="text/javascript"></script>
+	<script src="jsTimerPD.js" type="text/javascript"></script>
+	<style type="text/css">	
+	#testTimerAlone .timer{
+		font-size: 30px;
+	}
+	</style>
+
+</head>
+<body>
+
+<div id="testTimerAlone" style="background:green;height:100px"></div>
+
+<div id="alertDiv"></div>
+
+<script type="text/javascript">
+/** Alerts **/
+showAlert('Simple alert');
+showAlert('Color alert', 'blue');
+showAlert('Alert with custom time', 'blue', 120000);
+showAlert('Other color alert and stay on', 'olive', 0);
+showAlert('Do something after close', 'blue', 15000, function(){
+	console.log('hi from callback');
+});	
+showAlert('Callback with params', 'blue', 20000, function(data){		
+		console.log('param1 is: '+data['param1']);
+		console.log('param2 is: '+data.param2);
+	},
+	{param1:'value 1', param2:'value 2'}
+);
+var alertEl = showAlert('Return object');
+console.log(alertEl);
+
+/** Timer **/
+makeLineLoadTimer('#testTimerAlone',20);
+makePieLoadTimer('#testTimerAlone',20);
+makePieLoadTimer('#testTimerAlone',20, false);
+
+makeUnloaderTimer('#testTimerAlone',12);
+//makeUnloaderTimer('#testTimerAlone',12,'line');
+makeUnloaderTimer('#testTimerAlone',20,'pie');
+makePieUnloadTimer('#testTimerAlone',20);
+makePieUnloadTimer('#testTimerAlone',20, false);
+
+var timerObj =makeLineLoadTimer('#testTimerAlone',20);
+console.log(timerObj);
+
+
+</script>
+
+</body>
+</html>

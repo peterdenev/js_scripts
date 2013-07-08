@@ -4,7 +4,7 @@
 // @version    0.1
 // @description  bgn for dx.com
 // @include      http://*.dx.com/*
-// @include      https://dx.com/*
+// @include      https://*.dx.com/*
 // @include      http://dx.com/*
 // @include      https://dx.com/*
 // @copyright  2013+, Peter Denev
@@ -18,7 +18,7 @@ if (!String.prototype.trim) {
 
 price_to_bg = function(){
     var prices, val_split, i, old_value, bg_val, del_val, dels, product_price, p_cur, old_value_clean, del_old_val;
-    var dolar = 1.502;
+    var dolar = 1.55;
     var evro = 1.955;
 
     prices = document.getElementsByClassName('price');
@@ -33,10 +33,10 @@ price_to_bg = function(){
             
             if(del_old_val.indexOf('$')!=-1){
                 val_split = del_old_val.split('$');
-                del_val = val_split[1].trim() * dolar;
+                del_val = val_split[1].trim().replace(",",".") * dolar;
             }else if(del_old_val.indexOf('Ђ')!=-1){
                 val_split = del_old_val.split('Ђ');
-                del_val = val_split[1].trim() * evro;
+                del_val = val_split[1].trim().replace(",",".") * evro;
             }            
             
             del_val = Math.ceil(del_val * 100) / 100;
@@ -46,11 +46,11 @@ price_to_bg = function(){
         old_value_clean = old_value.replace(del_old_val,'');
         
         if(old_value_clean.indexOf('$')!=-1){
-            val_split = old_value_clean.split('$');
-            bg_val = val_split[1].trim() * dolar;
+            val_split = old_value_clean.split('$');            
+            bg_val = val_split[1].trim().replace(",",".") * dolar;
         }else if(old_value_clean.indexOf('Ђ')!=-1){
             val_split = old_value_clean.split('Ђ');
-            bg_val = val_split[1].trim() * evro;
+            bg_val = val_split[1].trim().replace(",",".") * evro;
         } 
         
         prices[i].setAttribute('title',old_value.trim());
@@ -64,9 +64,9 @@ price_to_bg = function(){
         old_value = product_price.innerHTML;
         p_cur = document.getElementsByClassName('cur_cy')[0].innerHTML;
         if(p_cur.indexOf('$')!=-1){            
-            bg_val = old_value.trim() * dolar;
+            bg_val = old_value.trim().replace(",",".") * dolar;
         }else if(p_cur.indexOf('Ђ')!=-1){           
-            bg_val = old_value.trim() * evro;
+            bg_val = old_value.trim().replace(",",".") * evro;
         }
         
         dels = product_price.getElementsByTagName('del');
